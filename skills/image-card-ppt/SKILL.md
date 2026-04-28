@@ -79,6 +79,7 @@ description: 将小红书内容创作中的原始文稿转化为固定 schema，
   "cards": [
     {
       "type": "cover",
+      "variant": "cover",
       "headline": "卡片标题",
       "body": ["正文内容块"],
       "media_refs": ["asset_001"],
@@ -113,6 +114,7 @@ description: 将小红书内容创作中的原始文稿转化为固定 schema，
 - `canvas`：画布尺寸。默认使用小红书竖版信息卡尺寸 `1080x1440 px`，宽高比 `3:4`，也就是高宽比 `4:3`。
 - `cards`：有顺序的卡片对象列表。
 - `cards[].type`：卡片角色，建议从 `cover`、`point`、`steps`、`quote`、`summary` 中选择。
+- `cards[].variant`：模板排版变体，MVP 必须支持 `cover`、`image_page`、`text_page`、`summary`。封面与内页排版不同，不能只使用同一套正文布局。
 - `cards[].headline`：卡片标题。
 - `cards[].body`：短正文内容块，每项应适合放入单张卡片。
 - `cards[].media_refs`：当前卡片引用的图片素材 ID 列表，可为空。
@@ -153,7 +155,14 @@ MVP 预期至少支持以下风格概念：
 - `templates/design.html`
 - `templates/design.config.json`
 
-`design` 风格基于浅灰背景、黑色大标题、蓝色强调色、细分隔线、顶部元信息、右上胶囊标签、居中图片展示框和底部页脚信息构成。模板应优先覆盖封面卡、图文说明卡和总结卡。
+`design` 风格基于浅灰背景、黑色大标题、蓝色强调色、细分隔线、顶部元信息、右上胶囊标签、居中图片展示框和底部页脚信息构成。MVP 必须覆盖封面卡、图文内页、纯文字内页和总结页。
+
+`design` 风格的排版变体：
+
+- `cover`：封面排版。保留左上品牌、右上主题提示、蓝色引导线、大标题、短摘要和底部数据栏。
+- `image_page`：图文内页。使用左上页码、右上胶囊标签、标题、说明文字、居中图片展示框、图片说明条和页脚。
+- `text_page`：纯文字内页。用于观点、步骤、引用等无图卡片，使用更大的正文要点和蓝色方块标记。
+- `summary`：总结页。用于收束观点或行动号召，保留封面式留白，但不显示底部数据栏。
 
 `design` 风格默认个人 IP 配置为 `飞柳OnMyWay`。后续脚本应优先读取 `templates/design.config.json`，允许用户覆盖 `brand.name` 和 `brand.subtitle`，但没有显式覆盖时必须使用默认账号。
 
@@ -192,6 +201,7 @@ MVP 文档阶段或脚本缺失时，输出应限制为：
 - schema 是否包含 `title`、`cards` 和 `metadata`。
 - schema 是否包含默认画布尺寸 `1080x1440 px`，或明确说明用户覆盖后的尺寸。
 - 每张卡片是否只有一个清晰主旨。
+- 每张卡片是否选择了合适的 `variant`，且封面、图文内页、纯文字内页、总结页的排版差异明确。
 - 卡片顺序是否符合小红书阅读节奏。
 - 正文是否适合卡片展示，避免长段落堆叠。
 - 用户输入的截图或图片是否被合理引用，而不是丢失或无意义装饰。
@@ -220,6 +230,7 @@ MVP 文档阶段或脚本缺失时，输出应限制为：
 - 从包含图片素材的样例输入生成 `media_assets` 与 `media_refs`。
 - 加载模板配置。
 - 生成 HTML 渲染产物。
+- 分别渲染 `cover`、`image_page`、`text_page`、`summary` 四类 MVP 排版。
 - 使用 Playwright 生成截图。
 
 新增功能必须配套最小范围测试。

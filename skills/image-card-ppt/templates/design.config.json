@@ -9,5 +9,7 @@
     "name": "飞柳OnMyWay",
     "subtitle": "技能手册 · 30×"
   },
-  "accentColor": "#168dde"
+  "accentColor": "#168dde",
+  "variants": ["cover", "image_page", "text_page", "summary"],
+  "defaultVariant": "image_page"
 }
