@@ -1,0 +1,17 @@
+{
+  "style": "design-v2",
+  "canvas": {
+    "width": 1080,
+    "height": 1440,
+    "ratio": "3:4"
+  },
+  "brand": {
+    "name": "飞柳OnMyWay",
+    "subtitle": "内容创作 · 信息卡"
+  },
+  "accentColor": "#267dc5",
+  "background": "#f7f9fb",
+  "textColor": "#101418",
+  "variants": ["cover", "image_page", "text_page", "summary"],
+  "defaultVariant": "image_page"
+}
