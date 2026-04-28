@@ -1,0 +1,19 @@
+{
+  "style": "tech",
+  "canvas": {
+    "width": 1080,
+    "height": 1440,
+    "ratio": "3:4"
+  },
+  "brand": {
+    "name": "飞柳OnMyWay",
+    "subtitle": "AI Lab · Code Notes"
+  },
+  "accentColor": "#39ff88",
+  "secondaryColor": "#ff4fd8",
+  "background": "#07090f",
+  "textColor": "#f1fff7",
+  "fontFamily": "Noto Sans SC",
+  "variants": ["cover", "image_page", "text_page", "summary"],
+  "defaultVariant": "image_page"
+}

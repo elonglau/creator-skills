@@ -163,6 +163,13 @@ MVP 预期至少支持以下风格概念：
 
 `design-v2` 默认字体使用 `Noto Sans SC`，并保留 `Source Han Sans SC`、`PingFang SC`、`Microsoft YaHei` 等中文字体作为 fallback。
 
+当前 `tech` 风格模板路径：
+
+- `templates/tech.html`
+- `templates/tech.config.json`
+
+`tech` 风格使用暗黑代码 IDE 视觉：黑色背景、荧光绿主强调、粉红辅助强调、等宽字体元信息、编辑器窗口结构、网格和扫描线纹理。该风格取消卡片式阴影，主要通过边框、状态栏、标签页和代码块式分区建立层次。
+
 `design` 风格的排版变体：
 
 - `cover`：封面排版。保留左上品牌、右上主题提示、蓝色引导线、大标题、短摘要和底部数据栏。
