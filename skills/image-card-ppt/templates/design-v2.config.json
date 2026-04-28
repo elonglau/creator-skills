@@ -13,6 +13,7 @@
   "background": "#f7f9fb",
   "backgroundTreatment": "subtle-gradient-grid",
   "textColor": "#101418",
+  "fontFamily": "Noto Sans SC",
   "variants": ["cover", "image_page", "text_page", "summary"],
   "defaultVariant": "image_page"
 }
