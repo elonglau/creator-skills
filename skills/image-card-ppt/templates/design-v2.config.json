@@ -11,6 +11,7 @@
   },
   "accentColor": "#267dc5",
   "background": "#f7f9fb",
+  "backgroundTreatment": "subtle-gradient-grid",
   "textColor": "#101418",
   "variants": ["cover", "image_page", "text_page", "summary"],
   "defaultVariant": "image_page"
