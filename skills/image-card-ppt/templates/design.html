@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1080, initial-scale=1">
+  <title>design card template</title>
+  <style>
+    :root {
+      --canvas-width: 1080px;
+      --canvas-height: 1440px;
+      --bg: #f2f2f1;
+      --ink: #171717;
+      --muted: #535353;
+      --line: #d8d8d5;
+      --panel: #f8f8f7;
+      --white: #ffffff;
+      --accent: #168dde;
+      --shadow: rgba(0, 0, 0, 0.025);
+      --mono: "SFMono-Regular", "Menlo", "Consolas", "Liberation Mono", monospace;
+      --sans: "Inter", "Helvetica Neue", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    html,
+    body {
+      width: var(--canvas-width);
+      min-width: var(--canvas-width);
+      height: var(--canvas-height);
+      min-height: var(--canvas-height);
+      margin: 0;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+    }
+
+    body {
+      letter-spacing: 0;
+    }
+
+    .canvas {
+      position: relative;
+      width: var(--canvas-width);
+      height: var(--canvas-height);
+      padding: 70px 70px 58px;
+      background: var(--bg);
+    }
+
+    .topbar,
+    .footer,
+    .meta-row,
+    .chips,
+    .stat-grid {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .topbar {
+      height: 48px;
+      font-family: var(--mono);
+      font-size: 16px;
+      letter-spacing: 0.14em;
+      color: var(--ink);
+    }
+
+    .brand {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      line-height: 1.35;
+    }
+
+    .brand::before {
+      content: "";
+      width: 4px;
+      height: 38px;
+      margin-top: 2px;
+      background: var(--accent);
+      display: block;
+    }
+
+    .brand strong {
+      display: block;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+    }
+
+    .brand span,
+    .top-note {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      white-space: nowrap;
+    }
+
+    .chips {
+      justify-content: flex-end;
+      gap: 10px;
+      font-family: var(--sans);
+      letter-spacing: 0;
+    }
+
+    .chip {
+      min-width: 52px;
+      height: 28px;
+      padding: 0 15px;
+      border: 1px solid #e1e1df;
+      border-radius: 999px;
+      background: var(--white);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 600;
+      color: #232323;
+      box-shadow: 0 1px 3px var(--shadow);
+    }
+
+    .content {
+      position: absolute;
+      left: 70px;
+      right: 70px;
+      top: 345px;
+      bottom: 138px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 36px;
+      font-family: var(--mono);
+      font-size: 16px;
+      letter-spacing: 0.08em;
+      color: #171717;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 38px;
+      height: 3px;
+      background: var(--accent);
+      display: block;
+    }
+
+    .headline {
+      max-width: 850px;
+      margin: 0;
+      color: var(--ink);
+      font-size: 68px;
+      line-height: 1.14;
+      font-weight: 750;
+      letter-spacing: 0;
+    }
+
+    .headline .accent {
+      color: var(--accent);
+    }
+
+    .summary {
+      max-width: 610px;
+      margin-top: 38px;
+      color: #1f1f1f;
+      font-size: 20px;
+      line-height: 1.72;
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+
+    .media-stage {
+      width: 100%;
+      margin-top: 46px;
+      padding: 52px 22px 22px;
+      border-radius: 28px 28px 0 0;
+      background: var(--panel);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+    }
+
+    .media-wrap {
+      width: 520px;
+      max-width: 100%;
+      margin: 0 auto;
+      background: #e7e7e5;
+      overflow: hidden;
+    }
+
+    .media-wrap img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .media-caption {
+      width: calc(100% - 22px);
+      height: 52px;
+      margin: 52px auto 0;
+      padding: 0 28px;
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 16px;
+      color: #191919;
+    }
+
+    .media-caption code {
+      font-family: var(--mono);
+      font-size: 15px;
+      color: #111;
+    }
+
+    .media-caption span:last-child {
+      max-width: 560px;
+      overflow: hidden;
+      text-align: right;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .footer {
+      position: absolute;
+      left: 70px;
+      right: 70px;
+      bottom: 56px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      color: #111;
+    }
+
+    .stat-grid {
+      position: absolute;
+      left: 70px;
+      right: 70px;
+      bottom: 48px;
+      padding-top: 21px;
+      border-top: 1px solid var(--line);
+      align-items: flex-start;
+    }
+
+    .stat {
+      width: 20%;
+      font-family: var(--sans);
+    }
+
+    .stat dt {
+      margin: 0 0 10px;
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 700;
+    }
+
+    .stat dd {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.15;
+      font-weight: 650;
+    }
+
+    .page-index {
+      font-family: var(--mono);
+      font-size: 16px;
+      letter-spacing: 0.08em;
+    }
+
+    .card[data-card-type="cover"] .content {
+      top: 352px;
+      bottom: 210px;
+    }
+
+    .card[data-card-type="cover"] .headline {
+      font-size: 74px;
+      line-height: 1.13;
+    }
+
+    .card[data-card-type="cover"] .summary {
+      margin-top: 42px;
+    }
+
+    .card[data-card-type="cover"] .footer {
+      display: none;
+    }
+
+    .card[data-card-type="cover"] .stat-grid {
+      display: flex;
+    }
+
+    .card:not([data-card-type="cover"]) .brand {
+      display: none;
+    }
+
+    .card:not([data-card-type="cover"]) .content {
+      top: 158px;
+      bottom: 134px;
+    }
+
+    .card:not([data-card-type="cover"]) .headline {
+      font-size: 58px;
+      line-height: 1.16;
+      max-width: 760px;
+    }
+
+    .card:not([data-card-type="cover"]) .summary {
+      max-width: 850px;
+      margin-top: 50px;
+      font-size: 19px;
+      line-height: 1.72;
+    }
+
+    .card:not([data-card-type="cover"]) .eyebrow {
+      display: none;
+    }
+
+    .card:not([data-card-type="cover"]) .stat-grid {
+      display: none;
+    }
+
+    .card:not([data-card-type="cover"]) .media-stage {
+      margin-top: 42px;
+    }
+
+    .card[data-layout="image_top"] .media-stage,
+    .card[data-layout="image_bottom"] .media-stage {
+      min-height: 826px;
+    }
+
+    .card[data-layout="image_top"] .media-wrap,
+    .card[data-layout="image_bottom"] .media-wrap {
+      height: 735px;
+    }
+
+    .card[data-layout="image_top"] .media-wrap img,
+    .card[data-layout="image_bottom"] .media-wrap img {
+      height: 100%;
+    }
+
+    .card[data-layout="split"] .media-stage {
+      min-height: 690px;
+      padding: 44px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .card[data-layout="split"] .media-wrap {
+      width: 100%;
+      height: 590px;
+      margin: 0;
+    }
+
+    .card[data-layout="split"] .media-wrap img {
+      height: 100%;
+    }
+
+    .card[data-layout="split"] .media-caption {
+      grid-column: 1 / -1;
+      margin-top: 6px;
+      width: 100%;
+    }
+
+    .card[data-layout="background"] .media-stage {
+      position: absolute;
+      inset: 230px 0 0;
+      min-height: auto;
+      padding: 0;
+      overflow: hidden;
+      border-radius: 26px;
+    }
+
+    .card[data-layout="background"] .media-wrap {
+      width: 100%;
+      height: 100%;
+    }
+
+    .card[data-layout="background"] .media-wrap img {
+      height: 100%;
+      opacity: 0.34;
+      filter: grayscale(8%);
+    }
+
+    .card[data-layout="background"] .media-caption {
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      bottom: 22px;
+      width: auto;
+      margin: 0;
+    }
+
+    .card[data-layout="no_media"] .media-stage {
+      display: none;
+    }
+
+    .card[data-layout="no_media"] .summary {
+      max-width: 620px;
+    }
+  </style>
+</head>
+<body>
+  <main class="canvas card" id="card" data-card-type="cover" data-layout="no_media">
+    <header class="topbar">
+      <div class="brand">
+        <div>
+          <strong id="brandName">NORAHE</strong>
+          <span id="brandSubtitle">技能手册 · 30×</span>
+        </div>
+      </div>
+      <div class="page-index" id="pageIndex">使用指南</div>
+      <div class="chips" id="chips" hidden></div>
+    </header>
+
+    <section class="content">
+      <div class="eyebrow" id="eyebrow">OpenAI · Image 2 · v1.0</div>
+      <h1 class="headline" id="headline">
+        <span class="accent">杀疯了！</span><br>专为 GPT Image 2 而生的营销生图 skill。
+      </h1>
+      <p class="summary" id="summary">
+        输入品牌 DESIGN.md，输出符合调性的营销图。适合封面、广告、海报和产品说明卡片。
+      </p>
+
+      <figure class="media-stage" id="mediaStage" hidden>
+        <div class="media-wrap">
+          <img id="mediaImage" alt="">
+        </div>
+        <figcaption class="media-caption">
+          <code id="mediaCode">img-01</code>
+          <span id="mediaCaption">Design · Visual reference</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <dl class="stat-grid" id="stats"></dl>
+
+    <footer class="footer" id="footer">
+      <span id="footerLeft">NORAHE · 技能 30×</span>
+      <span id="footerRight">01 / 11 · 广告创意</span>
+    </footer>
+  </main>
+
+  <script>
+    window.CARD_DATA = window.CARD_DATA || {
+      type: "cover",
+      layout: "no_media",
+      brand: {
+        name: "NORAHE",
+        subtitle: "技能手册 · 30×"
+      },
+      page: {
+        current: "使用指南",
+        total: "11"
+      },
+      chips: [],
+      eyebrow: "OpenAI · Image 2 · v1.0",
+      headline: [
+        { text: "杀疯了！", accent: true },
+        { text: "专为 GPT Image 2 而生的营销生图 skill。" }
+      ],
+      body: [
+        "输入品牌 DESIGN.md，输出符合调性的营销图。适合封面、广告、海报和产品说明卡片。"
+      ],
+      media: null,
+      footer: {
+        left: "NORAHE · 技能 30×",
+        right: "01 / 11 · 广告创意"
+      },
+      stats: [
+        { label: "版本", value: "v1.0" },
+        { label: "模板", value: "8 套" },
+        { label: "品牌", value: "60+" },
+        { label: "模型", value: "gpt-image-2" }
+      ]
+    };
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function renderHeadline(parts) {
+      if (!Array.isArray(parts)) {
+        return escapeHtml(parts || "");
+      }
+
+      return parts.map(function(part, index) {
+        var text = escapeHtml(part.text || "");
+        var className = part.accent ? " class=\"accent\"" : "";
+        var prefix = index > 0 ? "<br>" : "";
+        return prefix + "<span" + className + ">" + text + "</span>";
+      }).join("");
+    }
+
+    function render() {
+      var data = window.CARD_DATA;
+      var card = document.getElementById("card");
+      var type = data.type || "point";
+      var layout = data.layout || (data.media ? "image_bottom" : "no_media");
+
+      card.dataset.cardType = type;
+      card.dataset.layout = layout;
+
+      document.getElementById("brandName").textContent = data.brand && data.brand.name ? data.brand.name : "NORAHE";
+      document.getElementById("brandSubtitle").textContent = data.brand && data.brand.subtitle ? data.brand.subtitle : "";
+      var pageIndex = document.getElementById("pageIndex");
+      pageIndex.textContent = data.page && data.page.current ? data.page.current : "";
+      pageIndex.hidden = !(data.page && data.page.current);
+      document.getElementById("eyebrow").textContent = data.eyebrow || "";
+      document.getElementById("headline").innerHTML = renderHeadline(data.headline || "");
+      document.getElementById("summary").innerHTML = (data.body || []).map(function(item) {
+        return escapeHtml(item);
+      }).join("<br>");
+
+      var chips = document.getElementById("chips");
+      chips.innerHTML = "";
+      (data.chips || []).forEach(function(label) {
+        var chip = document.createElement("span");
+        chip.className = "chip";
+        chip.textContent = label;
+        chips.appendChild(chip);
+      });
+      chips.hidden = !data.chips || data.chips.length === 0;
+
+      var mediaStage = document.getElementById("mediaStage");
+      if (data.media && data.media.src) {
+        document.getElementById("mediaImage").src = data.media.src;
+        document.getElementById("mediaImage").alt = data.media.alt || "";
+        document.getElementById("mediaCode").textContent = data.media.code || data.media.id || "img";
+        document.getElementById("mediaCaption").textContent = data.media.caption || data.media.alt || "";
+        mediaStage.hidden = false;
+      } else {
+        mediaStage.hidden = true;
+      }
+
+      var stats = document.getElementById("stats");
+      stats.innerHTML = "";
+      (data.stats || []).forEach(function(item) {
+        var wrapper = document.createElement("div");
+        wrapper.className = "stat";
+        wrapper.innerHTML = "<dt>" + escapeHtml(item.label || "") + "</dt><dd>" + escapeHtml(item.value || "") + "</dd>";
+        stats.appendChild(wrapper);
+      });
+
+      document.getElementById("footerLeft").textContent = data.footer && data.footer.left ? data.footer.left : "";
+      document.getElementById("footerRight").textContent = data.footer && data.footer.right ? data.footer.right : "";
+    }
+
+    render();
+  </script>
+</body>
+</html>
