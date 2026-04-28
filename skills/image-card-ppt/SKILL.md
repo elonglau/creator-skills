@@ -151,8 +151,11 @@ MVP 预期至少支持以下风格概念：
 当前 `design` 风格模板路径：
 
 - `templates/design.html`
+- `templates/design.config.json`
 
 `design` 风格基于浅灰背景、黑色大标题、蓝色强调色、细分隔线、顶部元信息、右上胶囊标签、居中图片展示框和底部页脚信息构成。模板应优先覆盖封面卡、图文说明卡和总结卡。
+
+`design` 风格默认个人 IP 配置为 `飞柳OnMyWay`。后续脚本应优先读取 `templates/design.config.json`，允许用户覆盖 `brand.name` 和 `brand.subtitle`，但没有显式覆盖时必须使用默认账号。
 
 HTML 正文引用图片时应遵守：
 

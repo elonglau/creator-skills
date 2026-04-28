@@ -1,0 +1,13 @@
+{
+  "style": "design",
+  "canvas": {
+    "width": 1080,
+    "height": 1440,
+    "ratio": "3:4"
+  },
+  "brand": {
+    "name": "飞柳OnMyWay",
+    "subtitle": "技能手册 · 30×"
+  },
+  "accentColor": "#168dde"
+}

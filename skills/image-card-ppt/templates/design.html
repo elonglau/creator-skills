@@ -414,7 +414,7 @@
     <header class="topbar">
       <div class="brand">
         <div>
-          <strong id="brandName">NORAHE</strong>
+          <strong id="brandName">飞柳OnMyWay</strong>
           <span id="brandSubtitle">技能手册 · 30×</span>
         </div>
       </div>
@@ -445,18 +445,32 @@
     <dl class="stat-grid" id="stats"></dl>
 
     <footer class="footer" id="footer">
-      <span id="footerLeft">NORAHE · 技能 30×</span>
+      <span id="footerLeft">飞柳OnMyWay · 技能 30×</span>
       <span id="footerRight">01 / 11 · 广告创意</span>
     </footer>
   </main>
 
   <script>
+    window.TEMPLATE_CONFIG = window.TEMPLATE_CONFIG || {
+      style: "design",
+      canvas: {
+        width: 1080,
+        height: 1440,
+        ratio: "3:4"
+      },
+      brand: {
+        name: "飞柳OnMyWay",
+        subtitle: "技能手册 · 30×"
+      },
+      accentColor: "#168dde"
+    };
+
     window.CARD_DATA = window.CARD_DATA || {
       type: "cover",
       layout: "no_media",
       brand: {
-        name: "NORAHE",
-        subtitle: "技能手册 · 30×"
+        name: window.TEMPLATE_CONFIG.brand.name,
+        subtitle: window.TEMPLATE_CONFIG.brand.subtitle
       },
       page: {
         current: "使用指南",
@@ -473,7 +487,7 @@
       ],
       media: null,
       footer: {
-        left: "NORAHE · 技能 30×",
+        left: window.TEMPLATE_CONFIG.brand.name + " · 技能 30×",
         right: "01 / 11 · 广告创意"
       },
       stats: [
@@ -514,8 +528,13 @@
       card.dataset.cardType = type;
       card.dataset.layout = layout;
 
-      document.getElementById("brandName").textContent = data.brand && data.brand.name ? data.brand.name : "NORAHE";
-      document.getElementById("brandSubtitle").textContent = data.brand && data.brand.subtitle ? data.brand.subtitle : "";
+      var config = window.TEMPLATE_CONFIG || {};
+      var defaultBrand = config.brand || {};
+      var brandName = data.brand && data.brand.name ? data.brand.name : (defaultBrand.name || "飞柳OnMyWay");
+      var brandSubtitle = data.brand && data.brand.subtitle ? data.brand.subtitle : (defaultBrand.subtitle || "");
+
+      document.getElementById("brandName").textContent = brandName;
+      document.getElementById("brandSubtitle").textContent = brandSubtitle;
       var pageIndex = document.getElementById("pageIndex");
       pageIndex.textContent = data.page && data.page.current ? data.page.current : "";
       pageIndex.hidden = !(data.page && data.page.current);
@@ -555,7 +574,7 @@
         stats.appendChild(wrapper);
       });
 
-      document.getElementById("footerLeft").textContent = data.footer && data.footer.left ? data.footer.left : "";
+      document.getElementById("footerLeft").textContent = data.footer && data.footer.left ? data.footer.left : brandName;
       document.getElementById("footerRight").textContent = data.footer && data.footer.right ? data.footer.right : "";
     }
 
