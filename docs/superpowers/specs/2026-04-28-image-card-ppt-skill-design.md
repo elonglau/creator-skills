@@ -1,123 +1,123 @@
-# image-card-ppt Skill Design
+# image-card-ppt 技能设计
 
-Date: 2026-04-28
+日期：2026-04-28
 
-## Goal
+## 目标
 
-Create the first version of `skills/image-card-ppt/SKILL.md` for an AI-agent-facing skill that turns raw Xiaohongshu content drafts into structured information card outputs.
+创建 `skills/image-card-ppt/SKILL.md` 的第一版文档。这个 skill 面向 AI agent，用于把小红书内容创作中的原始文稿转化为结构化信息卡片输出。
 
-The MVP documentation should make the intended workflow clear before implementation exists. It should define what the agent should do, what inputs it should expect, what outputs the future scripts will produce, and what boundaries the MVP will keep.
+MVP 阶段的文档目标是先把未来实现前的工作流说清楚：agent 应该在什么场景下使用这个 skill，应该接收什么输入，应该如何把原始文稿转成固定 schema，后续脚本会产出哪些文件，以及当前阶段明确不做哪些能力。
 
-## Audience
+## 读者
 
-The primary reader is an AI coding/content agent. The document should not be written as a generic human README. It should tell the agent when to use the skill and how to reason through the task.
+主要读者是 AI 编程或内容处理 agent。文档不应写成普通用户 README，而应写成 agent 可执行的工作协议。
 
-Human-facing usage can be added later after scripts and examples exist.
+面向人类使用者的安装、运行和配置说明可以在脚本与示例稳定后再补充。
 
-## Proposed SKILL.md Structure
+## SKILL.md 结构
 
-The initial `SKILL.md` should include:
+初始版 `SKILL.md` 应包含：
 
-1. Frontmatter with `name: image-card-ppt` and a concise description.
-2. Purpose and activation criteria.
-3. Expected inputs.
-4. MVP workflow.
-5. Draft fixed schema for card content.
-6. Template style configuration concept.
-7. Expected output artifacts.
-8. Quality checks.
-9. MVP non-goals.
-10. Future extension points.
+1. frontmatter：包含 `name: image-card-ppt` 和简洁 description。
+2. 技能目标与适用场景。
+3. 预期输入。
+4. MVP 工作流。
+5. 卡片内容固定 schema 草案。
+6. 模板风格配置概念。
+7. 预期输出产物。
+8. 质量检查要求。
+9. MVP 非目标。
+10. 后续扩展点。
 
-## MVP Workflow
+## MVP 工作流
 
-The agent workflow should be described as:
+agent 工作流应描述为：
 
-1. Accept raw manuscript text from the user.
-2. Extract or rewrite the manuscript into a fixed intermediate schema.
-3. Split the schema into a sequence of information cards.
-4. Choose a template style configuration, such as design style or technology style.
-5. Render each card through an HTML template.
-6. Use a local Python script with Playwright to convert HTML cards into images.
-7. Return generated image paths and summarize the card sequence.
+1. 接收用户提供的原始文稿。
+2. 将原始文稿提取或改写为固定中间 schema。
+3. 按 schema 拆分为一组有顺序的信息卡片。
+4. 选择模板风格配置，例如设计风或科技风。
+5. 使用 HTML 模板渲染每张卡片。
+6. 使用本地 Python 脚本与 Playwright 将 HTML 卡片转为图片。
+7. 返回生成的图片路径，并总结本次卡片序列。
 
-The first `SKILL.md` only documents this flow. It does not need to include working scripts yet.
+第一版 `SKILL.md` 只需要描述这个流程，不需要包含可运行脚本。
 
-## Draft Schema
+## Schema 草案
 
-The document should define a practical draft schema so future implementation has a target:
+文档应定义一个实用的 schema 草案，作为后续实现的默认契约：
 
-- `title`: main topic or cover title.
-- `subtitle`: optional supporting line.
-- `audience`: intended reader.
-- `tone`: writing and visual tone.
-- `cards`: ordered list of card objects.
-- `cards[].type`: card role, such as `cover`, `point`, `steps`, `quote`, or `summary`.
-- `cards[].headline`: card title.
-- `cards[].body`: short content blocks for the card.
-- `cards[].visual_hint`: optional guidance for layout, image choice, or emphasis.
-- `metadata`: source text summary, template name, and generation notes.
+- `title`：主题或封面标题。
+- `subtitle`：可选的副标题。
+- `audience`：目标读者。
+- `tone`：文案与视觉语气。
+- `cards`：有顺序的卡片对象列表。
+- `cards[].type`：卡片角色，例如 `cover`、`point`、`steps`、`quote` 或 `summary`。
+- `cards[].headline`：卡片标题。
+- `cards[].body`：卡片正文内容块。
+- `cards[].visual_hint`：可选的布局、配图或重点强调提示。
+- `metadata`：原文摘要、模板名称与生成说明。
 
-This schema can change during implementation, but the MVP skill should establish it as the default contract.
+这个 schema 可在实现阶段调整，但 MVP skill 应把它作为默认数据契约。
 
-## Template Configuration
+## 模板配置
 
-The MVP should describe templates as named configurations rather than hardcoded one-off HTML files.
+MVP 应把模板描述为具名配置，而不是硬编码的一次性 HTML 文件。
 
-Each template style should eventually control:
+每个模板风格后续应控制：
 
-- Canvas size.
-- Typography.
-- Colors.
-- Spacing.
-- Decorative elements.
-- Card type layout rules.
+- 画布尺寸。
+- 字体排版。
+- 颜色。
+- 间距。
+- 装饰元素。
+- 不同卡片类型的布局规则。
 
-The initial documented examples should include `design` and `tech` styles because those are already part of the user goal.
+初始文档应包含 `design` 和 `tech` 两个示例风格，因为它们已经出现在当前目标中。
 
-## Outputs
+## 输出产物
 
-The future implementation should produce:
+后续实现应产出：
 
-- A normalized schema JSON file.
-- One HTML file per card, or an equivalent renderable HTML artifact.
-- One image per card rendered through Playwright.
-- A short generation report listing card count, template style, and output paths.
+- 规范化后的 schema JSON 文件。
+- 每张卡片对应的 HTML 文件，或等价的可渲染 HTML 产物。
+- 每张卡片通过 Playwright 渲染出的图片。
+- 一份简短生成报告，包含卡片数量、模板风格和输出路径。
 
-## Error Handling
+## 错误处理
 
-The skill should instruct the agent to stop and ask for clarification when the raw draft is too short, lacks a coherent topic, or conflicts with the requested card style.
+当原始文稿过短、缺少明确主题，或与用户要求的卡片风格冲突时，skill 应要求 agent 停止并向用户澄清。
 
-The skill should avoid silent fallback behavior. If rendering fails in future scripts, the agent should identify the root cause from the script or browser error before changing templates or schema.
+skill 应避免静默兜底。后续脚本渲染失败时，agent 应先根据脚本错误或浏览器错误定位根因，再修改模板或 schema。
 
-## Testing Expectations
+## 测试要求
 
-The MVP skill document should state that future implementation needs minimal tests for:
+MVP 文档应声明后续实现至少需要覆盖：
 
-- Schema generation from a sample manuscript.
-- Template configuration loading.
-- HTML rendering output existence.
-- Playwright screenshot generation.
+- 从样例文稿生成 schema。
+- 加载模板配置。
+- 生成 HTML 渲染产物。
+- 使用 Playwright 生成截图。
 
-## Non-Goals
+## 非目标
 
-The MVP should not promise:
+MVP 不承诺实现：
 
-- Multi-platform publishing.
-- Automated Xiaohongshu upload.
-- AI image generation.
-- Complex design systems.
-- A GUI editor.
-- Production-grade template marketplace behavior.
+- 多平台发布。
+- 自动上传小红书。
+- AI 图片生成。
+- 复杂设计系统。
+- GUI 编辑器。
+- 生产级模板市场能力。
 
-These can be future work after the local generation loop is stable.
+这些能力可以在本地生成闭环稳定后作为后续工作。
 
-## Acceptance Criteria
+## 验收标准
 
-The initial `SKILL.md` is acceptable when:
+初始 `SKILL.md` 满足以下条件即可接受：
 
-- It clearly targets AI-agent execution.
-- It documents the raw-text to schema to HTML to image flow.
-- It names the expected Python and Playwright rendering direction without requiring implementation.
-- It includes the draft schema and template configuration concept.
-- It keeps the MVP scope narrow and avoids promising future features as current behavior.
+- 明确面向 AI agent 执行。
+- 文档说明从原始文稿到 schema、HTML、图片的流程。
+- 提到 Python 与 Playwright 的本地渲染方向，但不要求当前实现脚本。
+- 包含 schema 草案和模板配置概念。
+- 保持 MVP 范围收敛，不把未来能力描述成当前能力。
